@@ -6,12 +6,11 @@ require('dotenv').config()
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const hostname = 'localhost';
-const port = 8000;
+const port = process.env.PORT || 3000;
 
 configView(app);
 initWebRoutes(app);
 
-app.listen(port, hostname, () => {
-    console.log(`Hello Pham Thanh, I am running at ${ hostname }:${ port }/`)
+app.listen(port, () => {
+    console.log(`Hello Pham Thanh, I am running at localhost:${ port }/`)
 })
