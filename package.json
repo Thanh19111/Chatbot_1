@@ -21,7 +21,8 @@
     "@babel/runtime": "^7.26.0",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.26.4",
