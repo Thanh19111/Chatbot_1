@@ -109,7 +109,7 @@ function handleMessage(sender_psid, received_message) {
 }
 
 // Handles messaging_postbacks events
-function handlePostback(sender_psid, received_postback) {
+async function handlePostback(sender_psid, received_postback) {
     let response;
 
     // Get the payload for the postback
@@ -117,9 +117,8 @@ function handlePostback(sender_psid, received_postback) {
 
     // Set the response based on the postback payload
     if (payload === 'yes') {
-        //fetchData().then(data=> obj = data)
-
-        response = {
+        // Tin nhắn 1 - Gửi ảnh
+        let response1 = {
             "attachment": {
                 "type": "template",
                 "payload": {
@@ -133,9 +132,13 @@ function handlePostback(sender_psid, received_postback) {
                 }
             }
         };
-        callSendAPI(sender_psid, response);
 
-        response = {
+        // Gửi ảnh đầu tiên
+        await callSendAPI(sender_psid, response1);
+        console.log("Image sent.");
+
+        // Tin nhắn 2 - Gửi các nút
+        let response2 = {
             "attachment": {
                 "type": "template",
                 "payload": {
@@ -160,14 +163,19 @@ function handlePostback(sender_psid, received_postback) {
                 }
             }
         };
-        callSendAPI(sender_psid, response);
+
+        // Gửi các nút sau khi gửi ảnh
+        await callSendAPI(sender_psid, response2);
+        console.log("Buttons sent.");
+
     } else if (payload === 'no') {
         response = { "text": "Bye, See ya" }
-        callSendAPI(sender_psid, response);
+        await callSendAPI(sender_psid, response);
+        console.log("Goodbye message sent.");
     }
-    // Send the message to acknowledge the postback
-
+    // No need to call sendAPI again here, as each send is now awaited
 }
+
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {
