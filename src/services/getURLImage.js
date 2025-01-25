@@ -11,27 +11,31 @@ const searchGoogleImages = async (query) => {
     // Hàm cuộn trang với phương pháp setTimeout thay vì page.waitForTimeout
     const scrollPage = async () => {
         let previousHeight = 0;
-        let maxScrolls = 10;
         let scrollCount = 0;
+        let maxScrolls = 3;  // Bạn có thể điều chỉnh số lần cuộn để thử
 
         while (scrollCount < maxScrolls) {
             let newHeight = await page.evaluate('document.body.scrollHeight');
 
+            // Kiểm tra xem chiều cao trang đã thay đổi chưa
             if (newHeight === previousHeight) {
-                console.log("Reached the end of the page.");
-                break;
+                console.log("Đã cuộn đến cuối trang.");
+                break;  // Nếu không thay đổi chiều cao, dừng cuộn
             }
 
             previousHeight = newHeight;
+
+            // Cuộn trang xuống dưới
             await page.evaluate('window.scrollBy(0, document.body.scrollHeight)');
 
-            // Sử dụng setTimeout để tạm dừng thay vì page.waitForTimeout
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            // Chờ để các ảnh mới được tải vào
+            await new Promise(resolve => setTimeout(resolve, 2000));
 
             scrollCount++;
-            console.log(`Scrolled ${scrollCount} times`);
+            console.log(`Cuộn trang lần ${scrollCount}`);
         }
     };
+
 
     await scrollPage();
 
@@ -44,15 +48,19 @@ const searchGoogleImages = async (query) => {
     return imageUrls;
 };
 
-let getImageResults = async () => {
-    const cats = await url.searchGoogleImages("cat meme gif");
-    return cats;
+const fetchData = async () => {
+    let data = await searchGoogleImages('cat meme gif');
+
+    // Kiểm tra nếu mảng không trống
+    if (data.length === 0) {
+        console.log("Không tìm thấy hình ảnh.");
+        return;
+    }
+
+    // Trả về hình ảnh ngẫu nhiên
+    return data[rd.randomIndex(0, data.length - 1)];
 };
 
-const fetchData = async () => {
-    let data = await getImageResults();
-    return data[rd.randomIndex(0,data.length-1)];
-};
-module.exports ={
+module.exports = {
     fetchData
-}
+};

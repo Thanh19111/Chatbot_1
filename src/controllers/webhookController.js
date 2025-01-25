@@ -3,7 +3,7 @@ const mess = ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "D�
 require('dotenv').config();
 
 const rd = require("../app/ran")
-const cats = require('../services/getURLImage');
+const {fetchData} = require("../services/getURLImage");
 
 const verifyToken = process.env.VERIFY_TOKEN;
 
@@ -69,11 +69,13 @@ function handleMessage(sender_psid, received_message) {
         // Create the payload for a basic text message, which
         // will be added to the body of our request to the Send API
         response = {
-            "text": `I sent the message: "${mess[rd.randomIndex(0,mess.length - 1)]}". Now send me an attachment!`
+            "text": `${mess[rd.randomIndex(0,mess.length - 1)]}`
         }
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
         let attachment_url = received_message.attachments[0].payload.url;
+        let obj = '';
+        fetchData().then(data=> obj = data)
         response = {
             "attachment": {
                 "type": "template",
@@ -83,7 +85,7 @@ function handleMessage(sender_psid, received_message) {
                         "title": "Bạn có muốn xem thêm nữa không?",
                         "subtitle": "Bấm vào các nút dưới đây để trả lời",
                         //"image_url": attachment_url,
-                        "image_url": cats.fetchData(),
+                        "image_url": obj,
                         "buttons": [
                             {
                                 "type": "postback",
@@ -115,6 +117,8 @@ function handlePostback(sender_psid, received_postback) {
 
     // Set the response based on the postback payload
     if (payload === 'yes') {
+        let obj = '';
+        fetchData().then(data=> obj = data)
         response = {
             "attachment": {
                 "type": "template",
@@ -124,7 +128,7 @@ function handlePostback(sender_psid, received_postback) {
                         "title": "Bạn có muốn xem thêm nữa không?",
                         "subtitle": "Tap a button to answer.",
                         //"image_url": attachment_url,
-                        "image_url": cats.fetchData(),
+                        "image_url": obj,
                         "buttons": [
                             {
                                 "type": "postback",
