@@ -1,4 +1,5 @@
 const puppeteer = require('puppeteer');
+const rd = require("../app/ran");
 
 const searchGoogleImages = async (query) => {
     const browser = await puppeteer.launch({ headless: false });
@@ -38,13 +39,20 @@ const searchGoogleImages = async (query) => {
         return Array.from(document.querySelectorAll('img')).map(img => img.src).filter(src => src.startsWith('http'));
     });
 
-
     imageUrls = imageUrls.filter(url => url.includes('images?'));
-    console.log(imageUrls);
-
     await browser.close();
     return imageUrls;
 };
+
+let getImageResults = async () => {
+    const cats = await url.searchGoogleImages("cat meme gif");
+    return cats;
+};
+
+const fetchData = async () => {
+    let data = await getImageResults();
+    return data[rd.randomIndex(0,data.length-1)];
+};
 module.exports ={
-    searchGoogleImages
+    fetchData
 }

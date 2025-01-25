@@ -1,7 +1,8 @@
 import request from 'request'
+const mess = ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "Dảk", "Bro go go", "go go brh brh"];
 require('dotenv').config();
 
-const {randomIndex, message} = require("../app/mess")
+const rd = require("../app/ran")
 const cats = require('../services/getURLImage');
 
 const verifyToken = process.env.VERIFY_TOKEN;
@@ -68,7 +69,7 @@ function handleMessage(sender_psid, received_message) {
         // Create the payload for a basic text message, which
         // will be added to the body of our request to the Send API
         response = {
-            "text": `I sent the message: "${message[randomIndex(0,message.length - 1)]}". Now send me an attachment!`
+            "text": `I sent the message: "${mess[rd.randomIndex(0,mess.length - 1)]}". Now send me an attachment!`
         }
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
@@ -82,7 +83,7 @@ function handleMessage(sender_psid, received_message) {
                         "title": "Bạn có muốn xem thêm nữa không?",
                         "subtitle": "Bấm vào các nút dưới đây để trả lời",
                         //"image_url": attachment_url,
-                        "image_url": cats[randomIndex(0,cats.length-1)],
+                        "image_url": cats.fetchData(),
                         "buttons": [
                             {
                                 "type": "postback",
@@ -123,7 +124,7 @@ function handlePostback(sender_psid, received_postback) {
                         "title": "Bạn có muốn xem thêm nữa không?",
                         "subtitle": "Tap a button to answer.",
                         //"image_url": attachment_url,
-                        "image_url": cats[randomIndex(0,cats.length-1)],
+                        "image_url": cats.fetchData(),
                         "buttons": [
                             {
                                 "type": "postback",
