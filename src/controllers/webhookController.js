@@ -118,32 +118,50 @@ function handlePostback(sender_psid, received_postback) {
     // Set the response based on the postback payload
     if (payload === 'yes') {
         //fetchData().then(data=> obj = data)
+
+
+        response = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "media",
+                    "elements": [
+                        {
+                            "media_type": "image", // Định nghĩa loại media là "image"
+                            "image_url": "https://media1.tenor.com/m/zlKoX5HPPu8AAAAd/cat-annoyed.gif" // URL của ảnh GIF
+                        }
+                    ]
+                }
+            }
+        };
+
         response = {
             "attachment": {
                 "type": "template",
                 "payload": {
                     "template_type": "generic",
-                    "elements": [{
-                        "title": "Bạn có muốn xem thêm nữa không?",
-                        "subtitle": "Tap a button to answer.",
-                        //"image_url": attachment_url,
-                        "image_url": obj,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Có :))",
-                                "payload": "yes",
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Không :((",
-                                "payload": "no",
-                            }
-                        ],
-                    }]
+                    "elements": [
+                        {
+                            "title": "Bạn có muốn xem thêm nữa không?", // Tiêu đề
+                            "buttons": [
+                                {
+                                    "type": "postback",  // Nút khi bấm sẽ gửi postback
+                                    "title": "Có :))",    // Tiêu đề nút
+                                    "payload": "yes"      // Payload trả về khi nhấn
+                                },
+                                {
+                                    "type": "postback",  // Nút khi bấm sẽ gửi postback
+                                    "title": "Không :((",  // Tiêu đề nút
+                                    "payload": "no"      // Payload trả về khi nhấn
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
-        }
+        };
+    }
+
     } else if (payload === 'no') {
         response = { "text": "Bye, See ya" }
     }
