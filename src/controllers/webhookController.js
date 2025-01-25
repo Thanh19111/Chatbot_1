@@ -1,5 +1,6 @@
 import request from 'request'
 const mess = ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "Dảk", "Bro go go", "go go brh brh"];
+const obj = 'https://media1.tenor.com/m/zlKoX5HPPu8AAAAd/cat-annoyed.gif'
 require('dotenv').config();
 
 const rd = require("../app/ran")
@@ -69,13 +70,12 @@ function handleMessage(sender_psid, received_message) {
         // Create the payload for a basic text message, which
         // will be added to the body of our request to the Send API
         response = {
-            "text": `${mess[rd.randomIndex(0,mess.length - 1)]}`
+            "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`
         }
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
         let attachment_url = received_message.attachments[0].payload.url;
-        let obj = '';
-        fetchData().then(data=> obj = data)
+        //fetchData().then(data=> obj = data)
         response = {
             "attachment": {
                 "type": "template",
@@ -117,8 +117,7 @@ function handlePostback(sender_psid, received_postback) {
 
     // Set the response based on the postback payload
     if (payload === 'yes') {
-        let obj = '';
-        fetchData().then(data=> obj = data)
+        //fetchData().then(data=> obj = data)
         response = {
             "attachment": {
                 "type": "template",
