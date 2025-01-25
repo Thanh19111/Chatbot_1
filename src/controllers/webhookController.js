@@ -119,7 +119,6 @@ function handlePostback(sender_psid, received_postback) {
     if (payload === 'yes') {
         //fetchData().then(data=> obj = data)
 
-
         response = {
             "attachment": {
                 "type": "template",
@@ -134,6 +133,7 @@ function handlePostback(sender_psid, received_postback) {
                 }
             }
         };
+        callSendAPI(sender_psid, response);
 
         response = {
             "attachment": {
@@ -160,13 +160,13 @@ function handlePostback(sender_psid, received_postback) {
                 }
             }
         };
-    }
-
+        callSendAPI(sender_psid, response);
     } else if (payload === 'no') {
         response = { "text": "Bye, See ya" }
+        callSendAPI(sender_psid, response);
     }
     // Send the message to acknowledge the postback
-    callSendAPI(sender_psid, response);
+
 }
 
 // Sends response messages via the Send API
