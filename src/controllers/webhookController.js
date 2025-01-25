@@ -1,7 +1,11 @@
 import request from 'request'
+import {random} from "../app/random";
 require('dotenv').config();
-const verifyToken = process.env.VERIFY_TOKEN;
 
+const {random, message} = require("../app/random")
+const cats = require('../services/getURLImage');
+
+const verifyToken = process.env.VERIFY_TOKEN;
 
 const postWebHook =  (req,res) =>{
     // Parse the request body from the POST
@@ -60,13 +64,12 @@ const getWebHook = (req, res) => {
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
     let response;
-
     // Checks if the message contains text
     if (received_message.text) {
         // Create the payload for a basic text message, which
         // will be added to the body of our request to the Send API
         response = {
-            "text": `You sent the message: "${received_message.text}". Now send me an attachment!`
+            "text": `I sent the message: "${message[random(0,message.length - 1)]}". Now send me an attachment!`
         }
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
@@ -77,18 +80,19 @@ function handleMessage(sender_psid, received_message) {
                 "payload": {
                     "template_type": "generic",
                     "elements": [{
-                        "title": "Is this the right picture?",
+                        "title": "Bạn có muốn xem thêm nữa không?",
                         "subtitle": "Tap a button to answer.",
-                        "image_url": attachment_url,
+                        //"image_url": attachment_url,
+                        "image_url": cats[random(0,cats.length-1)],
                         "buttons": [
                             {
                                 "type": "postback",
-                                "title": "Yes!",
+                                "title": "Có :))",
                                 "payload": "yes",
                             },
                             {
                                 "type": "postback",
-                                "title": "No!",
+                                "title": "Không :((",
                                 "payload": "no",
                             }
                         ],
@@ -111,9 +115,34 @@ function handlePostback(sender_psid, received_postback) {
 
     // Set the response based on the postback payload
     if (payload === 'yes') {
-        response = { "text": "Thanks!" }
+        response = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": [{
+                        "title": "Bạn có muốn xem thêm nữa không?",
+                        "subtitle": "Tap a button to answer.",
+                        //"image_url": attachment_url,
+                        "image_url": cats[random(0,cats.length-1)],
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "Có :))",
+                                "payload": "yes",
+                            },
+                            {
+                                "type": "postback",
+                                "title": "Không :((",
+                                "payload": "no",
+                            }
+                        ],
+                    }]
+                }
+            }
+        }
     } else if (payload === 'no') {
-        response = { "text": "Oops, try sending another image." }
+        response = { "text": "Bye, See ya" }
     }
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
