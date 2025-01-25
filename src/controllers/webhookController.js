@@ -1,8 +1,7 @@
 import request from 'request'
-import {random} from "../app/random";
 require('dotenv').config();
 
-const {random, message} = require("../app/random")
+const {randomIndex, message} = require("../app/mess")
 const cats = require('../services/getURLImage');
 
 const verifyToken = process.env.VERIFY_TOKEN;
@@ -69,7 +68,7 @@ function handleMessage(sender_psid, received_message) {
         // Create the payload for a basic text message, which
         // will be added to the body of our request to the Send API
         response = {
-            "text": `I sent the message: "${message[random(0,message.length - 1)]}". Now send me an attachment!`
+            "text": `I sent the message: "${message[randomIndex(0,message.length - 1)]}". Now send me an attachment!`
         }
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
@@ -81,9 +80,9 @@ function handleMessage(sender_psid, received_message) {
                     "template_type": "generic",
                     "elements": [{
                         "title": "Bạn có muốn xem thêm nữa không?",
-                        "subtitle": "Tap a button to answer.",
+                        "subtitle": "Bấm vào các nút dưới đây để trả lời",
                         //"image_url": attachment_url,
-                        "image_url": cats[random(0,cats.length-1)],
+                        "image_url": cats[randomIndex(0,cats.length-1)],
                         "buttons": [
                             {
                                 "type": "postback",
@@ -124,7 +123,7 @@ function handlePostback(sender_psid, received_postback) {
                         "title": "Bạn có muốn xem thêm nữa không?",
                         "subtitle": "Tap a button to answer.",
                         //"image_url": attachment_url,
-                        "image_url": cats[random(0,cats.length-1)],
+                        "image_url": cats[randomIndex(0,cats.length-1)],
                         "buttons": [
                             {
                                 "type": "postback",
