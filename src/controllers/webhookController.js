@@ -70,42 +70,67 @@ function handleMessage(sender_psid, received_message) {
         // Create the payload for a basic text message, which
         // will be added to the body of our request to the Send API
         response = {
-            "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`
+            "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`;
         }
+
+        callSendAPI(sender_psid, response1);
+
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
         let attachment_url = received_message.attachments[0].payload.url;
-        //fetchData().then(data=> obj = data)
-        response = {
+
+        let response1 = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "media",
+                    "elements": [
+                        {
+                            "media_type": "image", // Định nghĩa loại media là "image"
+                            "image_url": "https://media1.tenor.com/m/zlKoX5HPPu8AAAAd/cat-annoyed.gif" // URL của ảnh GIF
+                        }
+                    ]
+                }
+            }
+        };
+
+        // Gửi ảnh đầu tiên và chờ tin nhắn gửi xong
+        callSendAPI(sender_psid, response1);
+        console.log("Image sent.");
+
+        // Tin nhắn 2 - Gửi các nút
+        let response2 = {
             "attachment": {
                 "type": "template",
                 "payload": {
                     "template_type": "generic",
-                    "elements": [{
-                        "title": "Bạn có muốn xem thêm nữa không?",
-                        "subtitle": "Bấm vào các nút dưới đây để trả lời",
-                        //"image_url": attachment_url,
-                        "image_url": obj,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Có :))",
-                                "payload": "yes",
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Không :((",
-                                "payload": "no",
-                            }
-                        ],
-                    }]
+                    "elements": [
+                        {
+                            "title": "Bạn có muốn xem thêm nữa không?", // Tiêu đề
+                            "buttons": [
+                                {
+                                    "type": "postback",  // Nút khi bấm sẽ gửi postback
+                                    "title": "Có :))",    // Tiêu đề nút
+                                    "payload": "yes"      // Payload trả về khi nhấn
+                                },
+                                {
+                                    "type": "postback",  // Nút khi bấm sẽ gửi postback
+                                    "title": "Không :((",  // Tiêu đề nút
+                                    "payload": "no"      // Payload trả về khi nhấn
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
-        }
+        };
+
+        // Gửi các nút sau khi gửi ảnh xong
+        callSendAPI(sender_psid, response2);
+        console.log("Buttons sent.");
     }
 
     // Send the response message
-    callSendAPI(sender_psid, response);
 }
 
 // Handles messaging_postbacks events
@@ -116,72 +141,13 @@ async function handlePostback(sender_psid, received_postback) {
     let payload = received_postback.payload;
 
     // Set the response based on the postback payload
-    async function handlePostback(sender_psid, received_postback) {
-        let response;
-
-        // Get the payload for the postback
-        let payload = received_postback.payload;
-
-        // Set the response based on the postback payload
-        if (payload === 'yes') {
-            // Tin nhắn 1 - Gửi ảnh
-            let response1 = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "media",
-                        "elements": [
-                            {
-                                "media_type": "image", // Định nghĩa loại media là "image"
-                                "image_url": "https://media1.tenor.com/m/zlKoX5HPPu8AAAAd/cat-annoyed.gif" // URL của ảnh GIF
-                            }
-                        ]
-                    }
-                }
-            };
-
-            // Gửi ảnh đầu tiên và chờ tin nhắn gửi xong
-            await callSendAPI(sender_psid, response1);
-            console.log("Image sent.");
-
-            // Tin nhắn 2 - Gửi các nút
-            let response2 = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [
-                            {
-                                "title": "Bạn có muốn xem thêm nữa không?", // Tiêu đề
-                                "buttons": [
-                                    {
-                                        "type": "postback",  // Nút khi bấm sẽ gửi postback
-                                        "title": "Có :))",    // Tiêu đề nút
-                                        "payload": "yes"      // Payload trả về khi nhấn
-                                    },
-                                    {
-                                        "type": "postback",  // Nút khi bấm sẽ gửi postback
-                                        "title": "Không :((",  // Tiêu đề nút
-                                        "payload": "no"      // Payload trả về khi nhấn
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                }
-            };
-
-            // Gửi các nút sau khi gửi ảnh xong
-            await callSendAPI(sender_psid, response2);
-            console.log("Buttons sent.");
-
-        } else if (payload === 'no') {
-            response = { "text": "Bye, See ya" };
-            await callSendAPI(sender_psid, response);
-            console.log("Goodbye message sent.");
-        }
+    if (payload === 'yes') {
+        response = { "text": "Thanks!" }
+    } else if (payload === 'no') {
+        response = { "text": "Oops, try sending another image." }
     }
-    // No need to call sendAPI again here, as each send is now awaited
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
 }
 
 
