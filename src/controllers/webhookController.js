@@ -63,7 +63,7 @@ const getWebHook = (req, res) => {
 };
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
+async function handleMessage(sender_psid, received_message) {
     let response;
     // Checks if the message contains text
     if (received_message.text) {
@@ -73,7 +73,7 @@ function handleMessage(sender_psid, received_message) {
             "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`
         }
 
-        callSendAPI(sender_psid, response1);
+        await callSendAPI(sender_psid, response);
 
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
@@ -95,7 +95,7 @@ function handleMessage(sender_psid, received_message) {
         };
 
         // Gửi ảnh đầu tiên và chờ tin nhắn gửi xong
-        callSendAPI(sender_psid, response1);
+        await callSendAPI(sender_psid, response1);
         console.log("Image sent.");
 
         // Tin nhắn 2 - Gửi các nút
@@ -126,11 +126,10 @@ function handleMessage(sender_psid, received_message) {
         };
 
         // Gửi các nút sau khi gửi ảnh xong
-        callSendAPI(sender_psid, response2);
+        await callSendAPI(sender_psid, response2);
         console.log("Buttons sent.");
     }
 
-    // Send the response message
 }
 
 // Handles messaging_postbacks events
