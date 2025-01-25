@@ -70,7 +70,7 @@ function handleMessage(sender_psid, received_message) {
         // Create the payload for a basic text message, which
         // will be added to the body of our request to the Send API
         response = {
-            "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`;
+            "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`
         }
 
         callSendAPI(sender_psid, response1);
