@@ -3,7 +3,7 @@ const img = (name) =>{
         "attachment": {
             "type": "image",
             "payload": {
-                "url": `"${name}"`
+                "url": `${name}`
             }
         }
     };
