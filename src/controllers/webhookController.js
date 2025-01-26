@@ -1,6 +1,9 @@
 import request from 'request'
 const mess = ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "Dảk", "Bro go go", "go go brh brh"];
 const obj = 'https://media1.tenor.com/m/zlKoX5HPPu8AAAAd/cat-annoyed.gif'
+
+const imgrd = require("../app/imgrd");
+
 require('dotenv').config();
 
 const rd = require("../app/ran")
@@ -73,17 +76,13 @@ async function handleMessage(sender_psid, received_message) {
         callSendAPI(sender_psid, response);
 
     } else if (received_message.attachments) {
+
+        console.log(received_message.attachments);
+
         // Lấy URL của tệp đính kèm
         let attachment_url = received_message.attachments[0].payload.url;
 
-        let response1 = {
-            "attachment": {
-                "type": "image",
-                "payload": {
-                    "url": "https://media4.giphy.com/media/wr7oA0rSjnWuiLJOY5/giphy.gif?cid=6c09b952n2qjjluh14edclbxofh4hdck7acj73bwec6wpfqr&ep=v1_gifs_search&rid=giphy.gif&ct=g"
-                }
-            }
-        };
+        let response1 = imgrd.img("https://media4.giphy.com/media/wr7oA0rSjnWuiLJOY5/giphy.gif?cid=6c09b952n2qjjluh14edclbxofh4hdck7acj73bwec6wpfqr&ep=v1_gifs_search&rid=giphy.gif&ct=g");
 
         // Gửi ảnh trước
         await callSendAPI(sender_psid, response1);
@@ -142,7 +141,7 @@ async function handlePostback(sender_psid, received_postback) {
         response = { "text": "Oops, bye see ya" }
     }
     // Send the message to acknowledge the postback
-    //callSendAPI(sender_psid, response);
+    callSendAPI(sender_psid, response);
 }
 
 
