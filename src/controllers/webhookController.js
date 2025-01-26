@@ -89,7 +89,7 @@ async function handleMessage(sender_psid, received_message) {
         }
 
         // Gửi ảnh đầu tiên và chờ tin nhắn gửi xong
-        await callSendAPI(sender_psid, response1);
+        callSendAPI(sender_psid, response1);
 
         // Tin nhắn 2 - Gửi các nút
         let response2 = {
@@ -119,7 +119,7 @@ async function handleMessage(sender_psid, received_message) {
         };
 
         // Gửi các nút sau khi gửi ảnh xong
-       await callSendAPI(sender_psid, response2);
+        callSendAPI(sender_psid, response2);
     }
 
 }
