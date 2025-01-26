@@ -1,7 +1,7 @@
 import request from 'request'
 const mess = ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "Dảk", "Bro go go", "go go brh brh"];
-const obj = 'https://media1.tenor.com/m/zlKoX5HPPu8AAAAd/cat-annoyed.gif'
-
+const obj = require("../services/default")
+const cnt = obj.obj.length;
 const imgrd = require("../app/imgrd");
 
 require('dotenv').config();
@@ -82,7 +82,7 @@ async function handleMessage(sender_psid, received_message) {
         // Lấy URL của tệp đính kèm
         let attachment_url = received_message.attachments[0].payload.url;
 
-        let response1 = imgrd.img("https://media4.giphy.com/media/wr7oA0rSjnWuiLJOY5/giphy.gif?cid=6c09b952n2qjjluh14edclbxofh4hdck7acj73bwec6wpfqr&ep=v1_gifs_search&rid=giphy.gif&ct=g");
+        let response1 = imgrd.img(obj.obj[rd.randomIndex(0,cnt - 1)]);
 
         // Gửi ảnh trước
         await callSendAPI(sender_psid, response1);
@@ -131,11 +131,23 @@ async function handlePostback(sender_psid, received_postback) {
 
     // Set the response based on the postback payload
     if (payload === 'yes') {
-        let fake_message = {
-            attachment: "temp"
-            }
+        console.log("User clicked YES, resending image...");
 
-        await handleMessage(sender_psid, fake_message)
+        // Tạo một tin nhắn giả lập giống như khi nhận ảnh từ người dùng
+        let fake_message = {
+            attachments: [
+                {
+                    type: 'image',
+                    payload: {
+                        url: 'https://scontent.xx.fbcdn.net/v/t39.1997-6/39178562_1505197616293642_5411344281094848512_n.png?stp=cp0_dst-png&_nc_cat=1&ccb=1-7&_nc_sid=23dd7b&_nc_ohc=Ie9ABoejEpUQ7kNvgEssQ0p&_nc_ad=z-m&_nc_cid=0&_nc_zt=26&_nc_ht=scontent.xx&_nc_gid=AUVFzgVzPzXG0eWga_pxHED&oh=00_AYBvCUYI-nW5jp7tuELsogcQaN01aJXrJi6VE1uiSSyl_A&oe=679BC74B',
+                        sticker_id: 369239263222822
+                    }
+                }
+            ]
+        };
+
+        // Gọi lại hàm handleMessage với tin nhắn giả lập
+        await handleMessage(sender_psid, fake_message);
 
     } else if (payload === 'no') {
         response = { "text": "Oops, bye see ya" }
