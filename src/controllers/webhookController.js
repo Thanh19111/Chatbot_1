@@ -119,7 +119,7 @@ async function handleMessage(sender_psid, received_message) {
 
             await callSendAPI(sender_psid, response2);
             console.log("Nút đã được gửi thành công!");
-        }, 15000);  // Chờ 2 giây trước khi gửi nút
+        }, 7000);  // Chờ 2 giây trước khi gửi nút
     }
 }
 
@@ -132,7 +132,12 @@ async function handlePostback(sender_psid, received_postback) {
 
     // Set the response based on the postback payload
     if (payload === 'yes') {
-        await handleMessage(sender_psid, received_postback);
+        let fake_message = {
+            attachment: "temp"
+            }
+
+        await handleMessage(sender_psid, fake_message)
+
     } else if (payload === 'no') {
         response = { "text": "Oops, bye see ya" }
     }
