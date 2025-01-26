@@ -65,18 +65,15 @@ const getWebHook = (req, res) => {
 // Handles messages events
 async function handleMessage(sender_psid, received_message) {
     let response;
-    // Checks if the message contains text
+    // Kiểm tra nếu tin nhắn chứa văn bản
     if (received_message.text) {
-        // Create the payload for a basic text message, which
-        // will be added to the body of our request to the Send API
         response = {
             "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`
-        }
-
+        };
         callSendAPI(sender_psid, response);
 
     } else if (received_message.attachments) {
-        // Get the URL of the message attachment
+        // Lấy URL của tệp đính kèm
         let attachment_url = received_message.attachments[0].payload.url;
 
         let response1 = {
@@ -86,43 +83,46 @@ async function handleMessage(sender_psid, received_message) {
                     "url": "https://media4.giphy.com/media/wr7oA0rSjnWuiLJOY5/giphy.gif?cid=6c09b952n2qjjluh14edclbxofh4hdck7acj73bwec6wpfqr&ep=v1_gifs_search&rid=giphy.gif&ct=g"
                 }
             }
-        }
-
-        // Gửi ảnh đầu tiên và chờ tin nhắn gửi xong
-        callSendAPI(sender_psid, response1);
-
-        // Tin nhắn 2 - Gửi các nút
-        let response2 = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "Bạn có muốn xem thêm nữa không?", // Tiêu đề
-                            "buttons": [
-                                {
-                                    "type": "postback",  // Nút khi bấm sẽ gửi postback
-                                    "title": "Có :))",    // Tiêu đề nút
-                                    "payload": "yes"      // Payload trả về khi nhấn
-                                },
-                                {
-                                    "type": "postback",  // Nút khi bấm sẽ gửi postback
-                                    "title": "Không :((",  // Tiêu đề nút
-                                    "payload": "no"      // Payload trả về khi nhấn
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
         };
 
-        // Gửi các nút sau khi gửi ảnh xong
-        callSendAPI(sender_psid, response2);
-    }
+        // Gửi ảnh trước
+        await callSendAPI(sender_psid, response1);
+        console.log("Ảnh đã được gửi thành công!");
 
+        // Sử dụng setTimeout để đảm bảo gửi ảnh trước rồi mới gửi nút
+        setTimeout(async () => {
+            let response2 = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [
+                            {
+                                "title": "Bạn có muốn xem thêm nữa không?", // Tiêu đề
+                                "buttons": [
+                                    {
+                                        "type": "postback",  // Nút khi bấm sẽ gửi postback
+                                        "title": "Có :))",    // Tiêu đề nút
+                                        "payload": "yes"      // Payload trả về khi nhấn
+                                    },
+                                    {
+                                        "type": "postback",  // Nút khi bấm sẽ gửi postback
+                                        "title": "Không :((",  // Tiêu đề nút
+                                        "payload": "no"      // Payload trả về khi nhấn
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            };
+
+            await callSendAPI(sender_psid, response2);
+            console.log("Nút đã được gửi thành công!");
+        }, 2000);  // Chờ 2 giây trước khi gửi nút
+    }
 }
+
 
 // Handles messaging_postbacks events
 async function handlePostback(sender_psid, received_postback) {
