@@ -119,7 +119,7 @@ async function handleMessage(sender_psid, received_message) {
 
             await callSendAPI(sender_psid, response2);
             console.log("Nút đã được gửi thành công!");
-        }, 2000);  // Chờ 2 giây trước khi gửi nút
+        }, 5000);  // Chờ 2 giây trước khi gửi nút
     }
 }
 
