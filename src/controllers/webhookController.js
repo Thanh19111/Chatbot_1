@@ -73,7 +73,13 @@ async function handleMessage(sender_psid, received_message) {
         response = {
             "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`
         };
-        callSendAPI(sender_psid, response);
+
+        await callSendAPI(sender_psid, response);
+
+        let response1 = imgrd.img(obj.obj[rd.randomIndex(0,cnt - 1)]);
+
+        await callSendAPI(sender_psid, response1);
+        console.log("Ảnh đã được gửi thành công!");
 
     } else if (received_message.attachments) {
 
@@ -118,7 +124,7 @@ async function handleMessage(sender_psid, received_message) {
 
             await callSendAPI(sender_psid, response2);
             console.log("Nút đã được gửi thành công!");
-        }, 7000);  // Chờ 2 giây trước khi gửi nút
+        }, 10000);
     }
 }
 
