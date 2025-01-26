@@ -1,4 +1,4 @@
-const img = (nam) =>{
+const img = (name) =>{
     return {
         "attachment": {
             "type": "image",
