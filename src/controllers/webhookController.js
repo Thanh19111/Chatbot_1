@@ -63,7 +63,7 @@ const getWebHook = (req, res) => {
 };
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
+async function handleMessage(sender_psid, received_message) {
     let response;
     // Checks if the message contains text
     if (received_message.text) {
@@ -83,13 +83,13 @@ function handleMessage(sender_psid, received_message) {
             "attachment": {
                 "type": "image",
                 "payload": {
-                    "url": "https://thientu.vn/userfiles/images/meo-ollie.jpg"
+                    "url": "https://media4.giphy.com/media/wr7oA0rSjnWuiLJOY5/giphy.gif?cid=6c09b952n2qjjluh14edclbxofh4hdck7acj73bwec6wpfqr&ep=v1_gifs_search&rid=giphy.gif&ct=g"
                 }
             }
         }
 
         // Gửi ảnh đầu tiên và chờ tin nhắn gửi xong
-        callSendAPI(sender_psid, response1);
+        await callSendAPI(sender_psid, response1);
 
         // Tin nhắn 2 - Gửi các nút
         let response2 = {
@@ -119,26 +119,25 @@ function handleMessage(sender_psid, received_message) {
         };
 
         // Gửi các nút sau khi gửi ảnh xong
-        callSendAPI(sender_psid, response2);
+       await callSendAPI(sender_psid, response2);
     }
 
 }
 
 // Handles messaging_postbacks events
-function handlePostback(sender_psid, received_postback) {
+async function handlePostback(sender_psid, received_postback) {
     let response;
-
     // Get the payload for the postback
     let payload = received_postback.payload;
 
     // Set the response based on the postback payload
     if (payload === 'yes') {
-        response = { "text": "Thanks!" }
+        await handleMessage(sender_psid, received_postback);
     } else if (payload === 'no') {
-        response = { "text": "Oops, try sending another image." }
+        response = { "text": "Oops, bye see ya" }
     }
     // Send the message to acknowledge the postback
-    callSendAPI(sender_psid, response);
+    //callSendAPI(sender_psid, response);
 }
 
 
