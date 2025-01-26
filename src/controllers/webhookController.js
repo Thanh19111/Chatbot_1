@@ -63,23 +63,22 @@ const getWebHook = (req, res) => {
 };
 
 // Handles messages events
-async function handleMessage(sender_psid, received_message) {
-    let response;
+function handleMessage(sender_psid, received_message) {
     // Checks if the message contains text
     if (received_message.text) {
         // Create the payload for a basic text message, which
         // will be added to the body of our request to the Send API
-        response = {
+        let response = {
             "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`
         }
 
-        await callSendAPI(sender_psid, response);
+        callSendAPI(sender_psid, response);
 
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
         let attachment_url = received_message.attachments[0].payload.url;
 
-        let response1 = {
+        let response = {
             "attachment": {
                 "type": "template",
                 "payload": {
@@ -94,46 +93,13 @@ async function handleMessage(sender_psid, received_message) {
             }
         };
 
-        // Gửi ảnh đầu tiên và chờ tin nhắn gửi xong
-        await callSendAPI(sender_psid, response1);
-        console.log("Image sent.");
-
-        // Tin nhắn 2 - Gửi các nút
-        let response2 = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [
-                        {
-                            "title": "Bạn có muốn xem thêm nữa không?", // Tiêu đề
-                            "buttons": [
-                                {
-                                    "type": "postback",  // Nút khi bấm sẽ gửi postback
-                                    "title": "Có :))",    // Tiêu đề nút
-                                    "payload": "yes"      // Payload trả về khi nhấn
-                                },
-                                {
-                                    "type": "postback",  // Nút khi bấm sẽ gửi postback
-                                    "title": "Không :((",  // Tiêu đề nút
-                                    "payload": "no"      // Payload trả về khi nhấn
-                                }
-                            ]
-                        }
-                    ]
-                }
-            }
-        };
-
-        // Gửi các nút sau khi gửi ảnh xong
-        await callSendAPI(sender_psid, response2);
-        console.log("Buttons sent.");
+        callSendAPI(sender_psid, response);
     }
 
 }
 
 // Handles messaging_postbacks events
-async function handlePostback(sender_psid, received_postback) {
+function handlePostback(sender_psid, received_postback) {
     let response;
 
     // Get the payload for the postback
