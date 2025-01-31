@@ -32,7 +32,19 @@ const obj = [
     "https://i.chzbgr.com/full/9809236224/hA5A447AD/cat",
     "https://drastik.ch/wp-content/uploads/2023/06/blackcat.gif",
     "https://media.tenor.com/BiEdW2zVchkAAAAM/cat.gif",
-    "https://media0.giphy.com/media/XdDsb6psTES0eQo8Vg/giphy.gif?cid=6c09b9525i2yic260kw17a9vn65602cdgkr5y48licpqy90d&ep=v1_gifs_search&rid=giphy.gif&ct=g"
+    "https://media0.giphy.com/media/XdDsb6psTES0eQo8Vg/giphy.gif?cid=6c09b9525i2yic260kw17a9vn65602cdgkr5y48licpqy90d&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+    "https://static.wikia.nocookie.net/meme-cats/images/1/15/Chipi_Chipi_Chapa_Chapa_Cat.gif/revision/latest/thumbnail/width/360/height/360?cb=20240121174505",
+    "https://wallpapers-clan.com/wp-content/uploads/2024/03/nyan-cat-meme-gif-desktop-wallpaper-preview.gif",
+    "https://media.tenor.com/3lUmxXk3uwoAAAAM/cat-smacking-other-cat-cat.gif",
+    "https://s-media-cache-ak0.pinimg.com/originals/23/e3/60/23e360fc0161ddfb5fe4335f9944e554.gif",
+    "https://media3.giphy.com/media/hECJDGJs4hQjjWLqRV/giphy.gif?cid=6c09b952ttg54qne8w6sssjer2k4ju90767h1wyhm2hetrnx&ep=v1_gifs_search&rid=giphy.gif&ct=g",
+    "https://66.media.tumblr.com/b079d53bd5913a5e702546d0ea94e196/tumblr_oh1vm6aOC61tyncywo1_400.gif",
+    "https://i.pinimg.com/originals/c6/e5/79/c6e579110f88a0ca8aa98867ec3e5424.gif",
+    "https://i.imgflip.com/61x6my.gif",
+    "https://i.pinimg.com/originals/0d/c4/b3/0dc4b38ee54a0169f5730bcbe4f94d3a.gif",
+    "https://i.ytimg.com/vi/J2LW7C6kT74/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLASU5h413Zp4qIZwhvIXs9cvhzyIg",
+    "https://media.tenor.com/WgP-ldR_y8EAAAAM/cat-hair.gif",
+    "https://i.ytimg.com/vi/s12Kzu_J8zg/maxresdefault.jpg"
 ]
 const mess =  ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "Dảk", "Bro go go", "go go brh brh","Bủh goat i dat", "Vjp prồ", "Dảk lmao", "Hmmmm", "Hmmmmmmmmm", "Haizzzz", "Dảk wá", "Pềct","Pềct wá"];
 module.exports ={
