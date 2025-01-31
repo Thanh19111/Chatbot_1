@@ -1,8 +1,10 @@
 import request from 'request'
-const mess = ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "Dảk", "Bro go go", "go go brh brh"];
+
 const obj = require("../services/default")
 const cnt = obj.obj.length;
 const imgrd = require("../app/imgrd");
+const mess = obj.mess;
+
 
 require('dotenv').config();
 
@@ -73,13 +75,9 @@ async function handleMessage(sender_psid, received_message) {
         response = {
             "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`
         };
-
         await callSendAPI(sender_psid, response);
-
         let response1 = imgrd.img(obj.obj[rd.randomIndex(0,cnt - 1)]);
-
         await callSendAPI(sender_psid, response1);
-        console.log("Ảnh đã được gửi thành công!");
 
     } else if (received_message.attachments) {
 
@@ -92,8 +90,6 @@ async function handleMessage(sender_psid, received_message) {
 
         // Gửi ảnh trước
         await callSendAPI(sender_psid, response1);
-        console.log("Ảnh đã được gửi thành công!");
-
         // Sử dụng setTimeout để đảm bảo gửi ảnh trước rồi mới gửi nút
         setTimeout(async () => {
             let response2 = {
@@ -123,8 +119,7 @@ async function handleMessage(sender_psid, received_message) {
             };
 
             await callSendAPI(sender_psid, response2);
-            console.log("Nút đã được gửi thành công!");
-        }, 10000);
+        }, 14000);
     }
 }
 
