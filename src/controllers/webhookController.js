@@ -93,6 +93,9 @@ async function handleMessage(sender_psid, received_message) {
         let response1 = imgrd.img(obj.obj[rd.randomIndex(0,cnt - 1)]);
 
         // Gửi ảnh trước
+        console.log(response1);
+        console.log(obj.obj.length);
+
         await callSendAPI(sender_psid, response1);
         console.log("Ảnh đã được gửi thành công!");
 

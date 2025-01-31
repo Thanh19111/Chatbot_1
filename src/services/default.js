@@ -44,7 +44,15 @@ const obj = [
     "https://i.pinimg.com/originals/0d/c4/b3/0dc4b38ee54a0169f5730bcbe4f94d3a.gif",
     "https://i.ytimg.com/vi/J2LW7C6kT74/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLASU5h413Zp4qIZwhvIXs9cvhzyIg",
     "https://media.tenor.com/WgP-ldR_y8EAAAAM/cat-hair.gif",
-    "https://i.ytimg.com/vi/s12Kzu_J8zg/maxresdefault.jpg"
+    "https://i.ytimg.com/vi/s12Kzu_J8zg/maxresdefault.jpg",
+    "https://i.pinimg.com/originals/88/7a/f6/887af6ec26699944e06a0af8eca04a09.gif",
+    "https://i.makeagif.com/media/6-11-2023/cS_sA8.gif",
+    "https://i.kym-cdn.com/photos/images/newsfeed/002/735/542/6d7.gif",
+    "https://i.pinimg.com/originals/fa/30/3b/fa303b086f82a995158ca12e10bdf1a2.gif",
+    "https://i.makeagif.com/media/2-14-2023/idZcJ3.gif",
+    "https://diveinintl.com/lander/surachipm.com/?_=%2FGZTYJ2-kP74AAAAM%2Fcat-kitten.gif%23avVel1cMipmhS6kQFFAEGo0V28eOKzE%3D",
+    "https://media3.giphy.com/avatars/brander1/mqkiOISKDuX1.gif",
+    "https://gifdb.com/images/thumbnail/freaked-out-cat-crying-funny-meme-31q9cm6ypvkx5379.gif"
 ]
 const mess =  ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "Dảk", "Bro go go", "go go brh brh","Bủh goat i dat", "Vjp prồ", "Dảk lmao", "Hmmmm", "Hmmmmmmmmm", "Haizzzz", "Dảk wá", "Pềct","Pềct wá"];
 module.exports ={
