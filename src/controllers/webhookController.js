@@ -75,9 +75,13 @@ async function handleMessage(sender_psid, received_message) {
         response = {
             "text": `You say "${received_message.text}" I say "${mess[rd.randomIndex(0,mess.length - 1)]}"`
         };
+
         await callSendAPI(sender_psid, response);
+
         let response1 = imgrd.img(obj.obj[rd.randomIndex(0,cnt - 1)]);
-        callSendAPI(sender_psid, response1);
+
+        await callSendAPI(sender_psid, response1);
+        console.log("Ảnh đã được gửi thành công!");
 
     } else if (received_message.attachments) {
 
@@ -90,6 +94,8 @@ async function handleMessage(sender_psid, received_message) {
 
         // Gửi ảnh trước
         await callSendAPI(sender_psid, response1);
+        console.log("Ảnh đã được gửi thành công!");
+
         // Sử dụng setTimeout để đảm bảo gửi ảnh trước rồi mới gửi nút
         setTimeout(async () => {
             let response2 = {
@@ -119,6 +125,7 @@ async function handleMessage(sender_psid, received_message) {
             };
 
             await callSendAPI(sender_psid, response2);
+            console.log("Nút đã được gửi thành công!");
         }, 12000);
     }
 }
@@ -167,7 +174,6 @@ function callSendAPI(sender_psid, response) {
         },
         "message": response
     }
-
     // Send the HTTP request to the Messenger Platform
     request({
         "uri": "https://graph.facebook.com/v2.6/me/messages",
