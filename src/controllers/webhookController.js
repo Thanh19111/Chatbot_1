@@ -77,7 +77,7 @@ async function handleMessage(sender_psid, received_message) {
         };
         await callSendAPI(sender_psid, response);
         let response1 = imgrd.img(obj.obj[rd.randomIndex(0,cnt - 1)]);
-        await callSendAPI(sender_psid, response1);
+        callSendAPI(sender_psid, response1);
 
     } else if (received_message.attachments) {
 
@@ -119,7 +119,7 @@ async function handleMessage(sender_psid, received_message) {
             };
 
             await callSendAPI(sender_psid, response2);
-        }, 14000);
+        }, 12000);
     }
 }
 

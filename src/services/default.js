@@ -34,7 +34,7 @@ const obj = [
     "https://media.tenor.com/BiEdW2zVchkAAAAM/cat.gif",
     "https://media0.giphy.com/media/XdDsb6psTES0eQo8Vg/giphy.gif?cid=6c09b9525i2yic260kw17a9vn65602cdgkr5y48licpqy90d&ep=v1_gifs_search&rid=giphy.gif&ct=g"
 ]
-const mess =  ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "Dảk", "Bro go go", "go go brh brh","Bủh goat i dat", "Vjp prồ", "Dảk lamo"];
+const mess =  ["Bủh", "Lmao", "Bủh Bủh", "Bủh Lmao", "Chmúa mhề", "Dảk", "Bro go go", "go go brh brh","Bủh goat i dat", "Vjp prồ", "Dảk lmao", "Hmmmm", "Hmmmmmmmmm", "Haizzzz", "Dảk wá", "Pềct","Pềct wá"];
 module.exports ={
     obj: obj,
     mess: mess
